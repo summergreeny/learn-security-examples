@@ -1,3 +1,25 @@
 Briefly explain the vulnerability and why the secure version prevents the vulnerability.
 Which CIA property does tampering violate?
 What additional security mechanisms can you incorporate?
+
+### Vulnerability: NoSQL Injection
+
+The vulnerability in the first version of the code is NoSQL injection, which occurs when the application fails to sanitize user-provided input before using it in a database query. In this scenario, the application directly uses the `username` obtained from the query parameters to perform a database lookup without any validation or sanitization. Malicious users can exploit this by crafting input that manipulates the query, potentially allowing unauthorized access to data or even modification of the data.
+
+### Secure Version: Prevention of NoSQL Injection
+
+The secure version of the code mitigates this vulnerability by adding input validation and sanitization steps before performing the database query:
+
+1. **Input Validation**: It checks if the `username` is a string. This is a basic validation step that ensures the input conforms to the expected data type, helping to prevent injection attacks that rely on passing structured data (like objects or arrays) to manipulate the query.
+
+2. **Input Sanitization**: The `sanitizedUsername` variable is created by removing non-alphanumeric characters from the `username` input. This reduces the risk of injection attacks by stripping out characters that could be used to alter the structure of the query (e.g., `$` signs used in MongoDB query operators).
+
+By performing these steps, the application effectively reduces the risk of NoSQL injection attacks, ensuring that the database queries are executed as intended without being manipulated by malicious input.
+
+### CIA Property Violated by Tampering: Integrity
+
+Tampering with data or system functionality violates the **Integrity** aspect of the CIA (Confidentiality, Integrity, Availability) triad:
+
+- **Integrity**: This principle ensures that information is accurate and trustworthy and that it has not been modified in an unauthorized manner. Integrity violations occur when an attacker alters data or system behavior through unauthorized means, such as injecting malicious input into a database query.
+
+By securing the application against NoSQL injection attacks, the secure version upholds the integrity of the application's data and functionality, ensuring that information remains accurate, reliable, and unaltered by unauthorized parties.

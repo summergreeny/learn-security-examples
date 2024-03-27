@@ -1,1 +1,24 @@
 Briefly explain the vulnerability and why the secure version prevents the vulnerability.
+Briefly explain the vulnerability and why the secure version prevents the vulnerability.
+
+### Vulnerability of the First Version
+
+The first version of the code has a critical vulnerability due to the session cookie's `httpOnly` flag being set to `false`. This setting means that the cookie can be accessed by client-side JavaScript, which exposes the session to potential cross-site scripting (XSS) attacks. An attacker could craft a malicious script to steal the session cookie from users, allowing them to impersonate these users and gain unauthorized access to sensitive information or functionality within the application.
+
+### How the Second Version Mitigates the Vulnerability
+
+The second version of the code addresses this vulnerability by setting the `httpOnly` flag to `true` and adding `sameSite` with a value of `true` (which would be more appropriately set to `'strict'` or `'lax'` for real-world applications). 
+
+- **`httpOnly: true`**: This prevents client-side JavaScript from accessing the session cookie, mitigating the risk of XSS attacks by ensuring that even if an attacker can inject malicious scripts into the web page, they won't be able to steal the session cookie directly through these scripts.
+
+- **`sameSite: true`**: This setting controls whether the browser should send cookies with cross-site requests. By enforcing a strict or lax policy, it helps prevent cross-site request forgery (CSRF) attacks, where an attacker tricks a user's browser into executing an unwanted action on a web application where the user is authenticated.
+
+Together, these settings significantly enhance the security of the session management in the application.
+
+### CIA Properties Violated by Spoofing
+
+Spoofing primarily violates two principles of the CIA triad:
+
+1. **Authenticity (part of Integrity)**: Spoofing involves masquerading as another user or device, misleading systems and users about the true source of data or requests. This directly undermines the integrity of data and systems by allowing unauthorized access or actions that appear to be legitimate but are not.
+
+2. **Confidentiality**: By impersonating legitimate users, attackers may gain unauthorized access to sensitive or confidential information. Spoofing can lead to breaches of confidentiality by allowing attackers to see and manipulate data they should not have access to.

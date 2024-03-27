@@ -1,0 +1,8 @@
+function escapeHTML(input) {
+  return input.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+The function takes a string input and uses the replace method to search for specific characters and replace them with their HTML-encoded counterparts.
+This encoding prevents malicious input from being interpreted as part of the HTML or JavaScript by the browser, ensuring that the input is displayed as text rather than being executed.
+How This Prevents XSS Attacks
+XSS Attacks: Cross-Site Scripting attacks involve an attacker injecting malicious scripts into content that is then served to other users. When the malicious content is rendered by the user's browser, the script executes within the context of the user's session, potentially stealing session tokens or performing actions on behalf of the user.
