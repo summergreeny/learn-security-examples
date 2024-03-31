@@ -1,2 +1,5 @@
 - Briefly explain the vulnerability and why the secure version is better at preventing repudiation than the insecure version.
 - What additional security mechanisms can you incorporate to prevent such attacks?
+Persistent Logging: It introduces a persistent logging mechanism using a write stream to a file (server.log). This ensures that all requests and significant actions (such as message sending and retrieval) are logged with timestamps and user identifiers (usernames or IP addresses).
+Detailed Action Logging: By logging detailed information about actions, including the specific messages sent and the IP addresses from which requests are made, the system can provide audit trails that trace back to specific users and actions.
+Error Logging: The addition of error handling middleware that logs errors to the same file further ensures that any issues leading to potential repudiation claims can be investigated.
